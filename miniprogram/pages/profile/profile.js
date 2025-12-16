@@ -1,0 +1,358 @@
+// pages/profile/profile.js
+Page({
+  data: {
+    userInfo: null,
+    isLoggedIn: false,
+    wallet: {
+      balance: 0,
+      frozen: 0,
+      totalIncome: 0
+    },
+    taskStats: {
+      published: 0,
+      accepted: 0,
+      completed: 0,
+      favorites: 0
+    },
+    addressCount: 0
+  },
+
+  onLoad() {
+    console.log('个人页面加载')
+  },
+
+  onShow() {
+    this.checkLoginStatus()
+  },
+
+  // 检查登录状态
+  checkLoginStatus() {
+    const isLoggedIn = wx.getStorageSync('isLoggedIn') || false
+    const userInfo = wx.getStorageSync('userInfo')
+    
+    if (isLoggedIn && userInfo) {
+      this.setData({
+        isLoggedIn: true,
+        userInfo: userInfo
+      })
+      this.loadUserData()
+    } else {
+      this.setData({
+        isLoggedIn: false,
+        userInfo: null,
+        wallet: { balance: 0, frozen: 0, totalIncome: 0 },
+        taskStats: { published: 0, accepted: 0, completed: 0, favorites: 0 },
+        addressCount: 0
+      })
+    }
+  },
+
+  // 加载用户数据
+  loadUserData() {
+    if (!this.data.isLoggedIn || !this.data.userInfo) return
+    
+    const studentId = this.data.userInfo.studentId
+    
+    // 加载钱包数据
+    const walletData = wx.getStorageSync(`wallet_${studentId}`) || {
+      balance: 0,
+      frozen: 0,
+      totalIncome: 0
+    }
+    
+    // 加载任务统计数据
+    const taskStats = wx.getStorageSync(`taskStats_${studentId}`) || {
+      published: 0,
+      accepted: 0,
+      completed: 0,
+      favorites: 0
+    }
+    
+    // 加载任务列表，统计实际数量
+    const tasks = wx.getStorageSync(`tasks_${studentId}`) || {
+      published: [],
+      accepted: [],
+      completed: [],
+      favorites: []
+    }
+    
+    const updatedTaskStats = {
+      published: tasks.published.length,
+      accepted: tasks.accepted.length,
+      completed: tasks.completed.length,
+      favorites: tasks.favorites.length
+    }
+    
+    this.setData({
+      wallet: walletData,
+      taskStats: updatedTaskStats,
+      addressCount: wx.getStorageSync(`addresses_${studentId}`)?.length || 0
+    })
+  },
+
+  // 显示登录提示
+  showLoginTip() {
+    wx.showModal({
+      title: '提示',
+      content: '登录后可查询、使用该服务，是否登录？',
+      confirmText: '去登录',
+      cancelText: '取消',
+      success: (res) => {
+        if (res.confirm) {
+          this.navigateToLogin()
+        }
+      }
+    })
+  },
+
+  // 跳转到登录页面
+  navigateToLogin() {
+    wx.navigateTo({
+      url: '/pages/login/login?from=profile'
+    })
+  },
+
+  // 跳转到编辑个人信息
+  navigateToEditProfile() {
+    if (!this.data.isLoggedIn) {
+      this.showLoginTip()
+      return
+    }
+    
+    // 跳转到编辑页面（如果存在）
+    wx.navigateTo({
+      url: '/pages/edit-profile/edit-profile'
+    })
+  },
+
+  // 跳转到我发布的任务
+  navigateToMyPublish() {
+    if (!this.data.isLoggedIn) {
+      this.showLoginTip()
+      return
+    }
+    
+    wx.navigateTo({
+      url: '/pages/my-publish/my-publish'
+    })
+  },
+
+  // 跳转到我接单的任务
+  navigateToMyAccepted() {
+    if (!this.data.isLoggedIn) {
+      this.showLoginTip()
+      return
+    }
+    
+    wx.navigateTo({
+      url: '/pages/my-accept/my-accept'
+    })
+  },
+
+  // 跳转到我完成的任务
+  navigateToMyCompleted() {
+    if (!this.data.isLoggedIn) {
+      this.showLoginTip()
+      return
+    }
+    
+    wx.navigateTo({
+      url: '/pages/my-completed/my-completed'
+    })
+  },
+
+  // 跳转到我的收藏
+  navigateToMyFavorites() {
+    if (!this.data.isLoggedIn) {
+      this.showLoginTip()
+      return
+    }
+    
+    wx.navigateTo({
+      url: '/pages/my-favorites/my-favorites'
+    })
+  },
+
+  // 跳转到所有任务
+  navigateToAllTasks() {
+    if (!this.data.isLoggedIn) {
+      this.showLoginTip()
+      return
+    }
+    
+    wx.showActionSheet({
+      itemList: ['我发布的任务', '我接单的任务'],
+      success: (res) => {
+        if (res.tapIndex === 0) {
+          this.navigateToMyPublish()
+        } else if (res.tapIndex === 1) {
+          this.navigateToMyAccepted()
+        }
+      }
+    })
+  },
+
+  // 跳转到我的钱包 - 修改后：跳转到页面
+  navigateToMyWallet() {
+    if (!this.data.isLoggedIn) {
+      this.showLoginTip()
+      return
+    }
+    
+    // 修改这里：从显示提示改为跳转到钱包页面
+    wx.navigateTo({
+      url: '/pages/my-wallet/my-wallet'
+    })
+  },
+
+  // 跳转到地址管理 - 修改后：跳转到页面
+  navigateToAddress() {
+    if (!this.data.isLoggedIn) {
+      this.showLoginTip()
+      return
+    }
+    
+    // 修改这里：从显示提示改为跳转到地址页面
+    wx.navigateTo({
+      url: '/pages/address/address'
+    })
+  },
+
+  // 跳转到系统设置
+  navigateToSettings() {
+    if (!this.data.isLoggedIn) {
+      this.showLoginTip()
+      return
+    }
+    
+    wx.navigateTo({
+      url: '/pages/settings/settings'
+    })
+  },
+
+  // 跳转到关于我们
+  navigateToAbout() {
+    wx.navigateTo({
+      url: '/pages/about/about'
+    })
+  },
+
+  // 跳转到意见反馈
+  navigateToFeedback() {
+    if (!this.data.isLoggedIn) {
+      this.showLoginTip()
+      return
+    }
+    
+    wx.navigateTo({
+      url: '/pages/feedback/feedback'
+    })
+  },
+
+  // 显示信用分详情
+  showCreditScoreInfo() {
+    if (!this.data.isLoggedIn) {
+      this.showLoginTip()
+      return
+    }
+    
+    wx.showModal({
+      title: '信用分说明',
+      content: '信用分是根据您的任务完成率、用户评价等计算得出。信用分越高，平台推荐任务越多。\n\n当前信用分：' + (this.data.userInfo?.creditScore || 100),
+      showCancel: false,
+      confirmText: '知道了'
+    })
+  },
+
+  // 选择头像
+  chooseAvatar() {
+    if (!this.data.isLoggedIn) {
+      this.showLoginTip()
+      return
+    }
+    
+    wx.showActionSheet({
+      itemList: ['从相册选择', '拍照'],
+      success: (res) => {
+        if (res.tapIndex === 0) {
+          this.selectImageFromAlbum()
+        } else if (res.tapIndex === 1) {
+          this.takePhoto()
+        }
+      }
+    })
+  },
+
+  selectImageFromAlbum() {
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['compressed'],
+      sourceType: ['album'],
+      success: (res) => {
+        this.updateAvatar(res.tempFilePaths[0])
+      }
+    })
+  },
+
+  takePhoto() {
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['compressed'],
+      sourceType: ['camera'],
+      success: (res) => {
+        this.updateAvatar(res.tempFilePaths[0])
+      }
+    })
+  },
+
+  updateAvatar(tempFilePath) {
+    wx.showLoading({
+      title: '更新中...',
+    })
+    
+    setTimeout(() => {
+      const userInfo = { ...this.data.userInfo }
+      userInfo.avatarUrl = tempFilePath
+      
+      this.setData({ userInfo })
+      
+      // 保存到本地存储
+      wx.setStorageSync('userInfo', userInfo)
+      wx.setStorageSync(`userInfo_${userInfo.studentId}`, userInfo)
+      
+      wx.hideLoading()
+      wx.showToast({
+        title: '头像更新成功',
+        icon: 'success'
+      })
+    }, 1000)
+  },
+
+  // 退出登录
+  handleLogout() {
+    wx.showModal({
+      title: '提示',
+      content: '确定要退出登录吗？',
+      success: (res) => {
+        if (res.confirm) {
+          // 清除登录状态
+          wx.removeStorageSync('userInfo')
+          wx.removeStorageSync('isLoggedIn')
+          wx.removeStorageSync('currentStudentId')
+          
+          this.setData({
+            isLoggedIn: false,
+            userInfo: null,
+            wallet: { balance: 0, frozen: 0, totalIncome: 0 },
+            taskStats: { published: 0, accepted: 0, completed: 0, favorites: 0 }
+          })
+          
+          wx.showToast({
+            title: '已退出登录',
+            icon: 'success'
+          })
+        }
+      }
+    })
+  }
+})

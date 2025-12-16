@@ -1,0 +1,57 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/profile/profile",
+    "pages/login/login",
+    "pages/edit-profile/edit-profile",
+    "pages/my-publish/my-publish",
+    "pages/my-accept/my-accept",
+    "pages/my-completed/my-completed",
+    "pages/my-favorites/my-favorites",
+    "pages/ques/ques",
+    "pages/express/express",
+    "pages/buy-it/buy",
+    "pages/urgent/urgent",
+    "pages/toast/toast",
+    "pages/rent/rent",
+    "pages/my-wallet/my-wallet",
+    "pages/address/address",
+    "pages/settings/settings",
+    "pages/feedback/feedback",
+    "pages/about/about",
+    "pages/personal-info/personal-info",
+    "pages/account-security/account-security",
+    "pages/account-security/change-pwd",
+    "pages/account-security/login-record",
+    "pages/account-security/device-manage",
+    "pages/privacy/privacy",
+    "pages/privacy/info-visibility",
+    "pages/privacy/auth-manage" 
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#4CAF50",
+    "navigationBarTitleText": "校园代办",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#999",
+    "selectedColor": "#4CAF50",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/ques/ques",
+        "text": "发布问题"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}
