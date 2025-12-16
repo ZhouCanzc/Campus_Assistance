@@ -1,0 +1,65 @@
+<!--pages/express/express.wxml-->
+
+
+<view class="container">
+
+    <!-- 搜索区域 -->
+    <view class="search-section">
+    <input class="search-input" placeholder="搜索" />
+    <button class="search-btn">搜索</button>
+    </view>
+
+    <!-- 顶部tab栏 -->
+    <view class="tab-bar">
+      <!-- 全部  -->
+      <view class="tab-item{{activeTab === 0 ? 'active' : ''}}"
+      bindtap="switchTab" 
+      data-index="0"
+      >
+      </view>
+
+      <!-- 待接单  -->
+      <view class="tab-item{{activeTab === 1 ? 'active' : ''}}"
+      bindtap="switchTab" 
+      data-index="1"
+      >
+      </view>
+
+      <!-- 配送中  -->
+      <view class="tab-item{{activeTab === 2 ? 'active' : ''}}"
+      bindtap="switchTab" 
+      data-index="2"
+      >
+      </view>
+
+      <!-- 已完成  -->
+      <view class="tab-item{{activeTab === 3 ? 'active' : ''}}"
+      bindtap="switchTab" 
+      data-index="3"
+      >
+      </view>
+    </view>
+
+    <!-- 切换的内容区域 -->
+    <view class="tab-content">
+       <!-- 全部 -->
+       <view wx:if="{{activeTab === 0}}">
+       <view class="demand-item">需求1：代取快递</view>
+       </view>
+
+      <!-- 待接单 -->
+      <view wx:if="{{activeTab === 1}}" class="tab-page">
+      <view class="demand-item">需求1：代取快递</view>
+      </view>
+
+      <!-- 配送中 -->
+      <view wx:if="{{activeTab === 2}}" class="tab-page">
+      <view class="demand-item">需求1：代取快递</view>
+      </view>
+
+      <!-- 已完成 -->
+      <view wx:if="{{activeTab === 3}}" class="tab-page">
+      <view class="demand-item">需求1：代取快递</view>
+      </view>
+    </view>
+</view>

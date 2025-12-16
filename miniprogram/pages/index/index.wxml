@@ -1,0 +1,44 @@
+<!--index.wxml-->
+
+<view class="container">
+  <!-- 顶部横幅 -->
+  <view class="banner">
+    <text class="banner-title">校园代办</text>
+  </view>
+
+  <!-- 服务网格 -->
+  <view class="service-grid">
+    <!-- 代取快递 -->
+    <view class="service-item" bindtap="navigateToExpress">
+      <view class="service-icon express">快</view>
+      <text class="service-title">代取快递</text>
+    </view>
+
+    <!-- 代买服务 -->
+    <view class="service-item" bindtap="navigateToBuy">
+      <view class="service-icon buy">买</view>
+      <text class="service-title">代买服务</text>
+    </view>
+
+    <!-- 代办急事 -->
+    <view class="service-item" bindtap="navigateToUrgent">
+      <view class="service-icon urgent">急</view>
+      <text class="service-title">代办急事</text>
+    </view>
+
+    <!-- 陪替服务 -->
+    <view class="service-item" bindtap="navigateToCompany">
+      <view class="service-icon company">陪</view>
+      <text class="service-title">陪替服务</text>
+    </view>
+
+    <!-- 租借物品 -->
+    <view class="service-item" bindtap="navigateToRent">
+      <view class="service-icon rent">租</view>
+      <text class="service-title">租借物品</text>
+    </view>
+  </view>  
+
+  <!-- 底部空白区域 -->
+  <view class="bottom-space"></view>
+</view>  
