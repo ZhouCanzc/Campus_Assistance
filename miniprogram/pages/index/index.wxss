@@ -1,0 +1,100 @@
+/**index.wxss**/
+
+.container {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* 顶部横幅 */
+.banner {
+  background: linear-gradient(135deg, #93db80, #8ede1f);
+  padding: 130rpx 280rpx;
+  color: white;
+  margin-bottom: 50rpx;
+}
+
+.banner-title {
+  display: block;
+  font-size: 48rpx;
+  font-weight: bold;
+  margin-bottom: 15rpx;
+}
+
+/*.banner-subtitle {
+  display: block;
+  font-size: 28rpx;
+  opacity: 0.9;
+}*/
+
+/* 服务网格 */
+.service-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40rpx;
+  padding: 0 0rpx;
+}
+
+.service-item {
+  background: rgb(177, 246, 196);
+  border-radius: 80rpx;
+  padding: 5rpx 65rpx;
+  text-align: center;
+  box-shadow: 0 4rpx 20rpx rgba(222, 247, 163, 0.08);
+  transition: all 0.3s ease;
+}
+
+.service-item:active {
+  transform: scale(0.98);
+  box-shadow: 0 2rpx 10rpx rgba(0,0,0,0.12);
+}
+
+ .service-icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: white;
+}
+
+.service-icon.express {
+  background-color: #89dda5;
+}
+
+.service-icon.buy {
+  background-color: #4ECDC4;
+}
+
+.service-icon.urgent {
+  background-color: #FFD166;
+}
+
+.service-icon.company {
+  background-color: #6A89CC;
+}
+
+.service-icon.rent {
+  background-color: #db85ef;
+}
+
+.service-title {
+  display: block;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+/*.service-desc {
+  display: block;
+  font-size: 24rpx;
+  color: #999;
+}*/
+
+.bottom-space {
+  height: 500rpx;
+}

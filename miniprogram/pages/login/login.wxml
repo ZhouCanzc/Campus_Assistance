@@ -1,0 +1,84 @@
+<!-- pages/login/login.wxml -->
+<view class="login-page">
+  <!-- 顶部logo -->
+  <view class="logo-section">
+    <view class="logo">🚀</view>
+    <text class="app-name">校园代取小程序</text>
+    <text class="app-slogan">方便快捷的校园生活服务平台</text>
+  </view>
+
+  <!-- 登录表单 -->
+  <view class="form-section">
+    <view class="input-group">
+      <view class="input-item">
+        <text class="input-label">学号</text>
+        <input 
+          class="input-field" 
+          placeholder="请输入学号" 
+          value="{{studentId}}"
+          bindinput="onStudentIdInput"
+          maxlength="12"
+        />
+      </view>
+      
+      <view class="input-item">
+        <text class="input-label">密码</text>
+        <input 
+          class="input-field" 
+          placeholder="请输入密码" 
+          password
+          value="{{password}}"
+          bindinput="onPasswordInput"
+        />
+      </view>
+      
+      <view class="input-item">
+        <text class="input-label">确认密码</text>
+        <input 
+          class="input-field" 
+          placeholder="请再次输入密码" 
+          password
+          value="{{confirmPassword}}"
+          bindinput="onConfirmPasswordInput"
+        />
+      </view>
+    </view>
+    
+    <!-- 登录/注册按钮 -->
+    <button 
+      class="login-btn" 
+      bindtap="handleLogin"
+      disabled="{{!canSubmit}}"
+    >
+      {{isRegisterMode ? '注册' : '登录'}}
+    </button>
+    
+    <!-- 切换登录/注册模式 -->
+    <view class="mode-switch" bindtap="toggleMode">
+      <text>{{isRegisterMode ? '已有账号？去登录' : '没有账号？去注册'}}</text>
+    </view>
+    
+    <!-- 快速登录（测试用） -->
+    <view class="quick-login">
+      <text class="quick-title">测试账号（点击快速登录）</text>
+      <view class="quick-accounts">
+        <view class="quick-account" bindtap="quickLogin" data-id="20210001">
+          <text>学号: 20210001</text>
+          <text>密码: 123456</text>
+        </view>
+        <view class="quick-account" bindtap="quickLogin" data-id="20210002">
+          <text>学号: 20210002</text>
+          <text>密码: 123456</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 用户协议 -->
+  <view class="agreement">
+    <text>登录即表示同意</text>
+    <text class="agreement-link">《用户服务协议》</text>
+    <text>和</text>
+    <text class="agreement-link">《隐私政策》</text>
+  </view>
+</view>
